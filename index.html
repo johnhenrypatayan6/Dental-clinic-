@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>IRON CORE | Elite Fitness Gym</title>
+  <!-- Font Awesome 6 for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0a0a0a;
+      color: #f0f0f0;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header & Navigation */
+    header {
+      background: rgba(10, 10, 10, 0.92);
+      backdrop-filter: blur(12px);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 999;
+      border-bottom: 1px solid rgba(255, 69, 0, 0.3);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #ff4500;
+      text-transform: uppercase;
+    }
+    .logo span {
+      color: #fff;
+      font-weight: 300;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: #ccc;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+      position: relative;
+    }
+    .nav-links a:hover {
+      color: #ff4500;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background: #ff4500;
+      transition: 0.3s;
+    }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #ff4500;
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-top: 0;
+    }
+
+    .hero-content h1 {
+      font-size: 4rem;
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: 3px;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+    .hero-content h1 span {
+      color: #ff4500;
+    }
+    .hero-content p {
+      font-size: 1.4rem;
+      margin-bottom: 2rem;
+      color: #ddd;
+    }
+    .btn {
+      background: #ff4500;
+      color: white;
+      padding: 15px 40px;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 50px;
+      transition: 0.3s;
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+      letter-spacing: 1px;
+    }
+    .btn:hover {
+      background: #e03e00;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(255,69,0,0.4);
+    }
+
+    /* Section titles */
+    .section-title {
+      text-align: center;
+      margin: 60px 0 40px;
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      position: relative;
+      color: #fff;
+    }
+    .section-title span {
+      color: #ff4500;
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: #ff4500;
+      margin: 15px auto 0;
+    }
+
+    /* Classes / Programs grid */
+    .classes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+    .class-card {
+      background: #1a1a1a;
+      border-radius: 15px;
+      overflow: hidden;
+      transition: 0.4s;
+      border: 1px solid #2a2a2a;
+    }
+    .class-card:hover {
+      transform: translateY(-8px);
+      border-color: #ff4500;
+      box-shadow: 0 15px 30px rgba(255,69,0,0.2);
+    }
+    .class-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+    .class-info {
+      padding: 20px;
+    }
+    .class-info h3 {
+      color: #ff4500;
+      margin-bottom: 10px;
+    }
+
+    /* Trainers */
+    .trainers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+    .trainer-card {
+      background: #1a1a1a;
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      border: 1px solid #2a2a2a;
+      transition: 0.3s;
+    }
+    .trainer-card:hover {
+      border-color: #ff4500;
+    }
+    .trainer-card img {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #ff4500;
+      margin-bottom: 15px;
+    }
+    .social-icons i {
+      margin: 0 8px;
+      color: #aaa;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .social-icons i:hover {
+      color: #ff4500;
+    }
+
+    /* Membership cards */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+    .pricing-card {
+      background: #1a1a1a;
+      padding: 35px 25px;
+      border-radius: 20px;
+      text-align: center;
+      border: 1px solid #333;
+      transition: 0.4s;
+      position: relative;
+    }
+    .pricing-card.featured {
+      border: 2px solid #ff4500;
+      transform: scale(1.02);
+    }
+    .pricing-card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+    .price {
+      font-size: 3rem;
+      font-weight: 800;
+      color: #ff4500;
+    }
+    .pricing-card ul {
+      list-style: none;
+      margin: 25px 0;
+    }
+    .pricing-card li {
+      padding: 8px 0;
+      border-bottom: 1px solid #2a2a2a;
+    }
+    .pricing-card button {
+      background: #ff4500;
+      border: none;
+      color: white;
+      padding: 14px 35px;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 100%;
+    }
+    .pricing-card button:hover {
+      background: #e03e00;
+    }
+
+    /* Contact form */
+    .contact-form {
+      background: #1a1a1a;
+      padding: 40px;
+      border-radius: 20px;
+      max-width: 700px;
+      margin: 0 auto 60px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 14px;
+      background: #0a0a0a;
+      border: 1px solid #333;
+      border-radius: 8px;
+      color: white;
+      font-size: 1rem;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #ff4500;
+    }
+
+    /* Footer */
+    footer {
+      background: #050505;
+      text-align: center;
+      padding: 30px;
+      border-top: 1px solid #222;
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #ff4500;
+      color: white;
+      padding: 15px 25px;
+      border-radius: 50px;
+      font-weight: bold;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      transform: translateX(120%);
+      transition: 0.4s ease;
+      z-index: 9999;
+    }
+    .toast.show {
+      transform: translateX(0);
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      .nav-links {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        background: #0a0a0af0;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        padding: 25px 0;
+        gap: 1.5rem;
+        display: none;
+        backdrop-filter: blur(15px);
+      }
+      .nav-links.active {
+        display: flex;
+      }
+      .hero-content h1 {
+        font-size: 2.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="container">
+      <div class="logo">IRON<span>CORE</span></div>
+      <div class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#classes">Classes</a></li>
+        <li><a href="#trainers">Trainers</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <h1>BUILD YOUR <span>LEGEND</span></h1>
+        <p>Unleash the strongest version of yourself</p>
+        <a href="#pricing" class="btn">Join Now</a>
+      </div>
+    </section>
+
+    <!-- Classes Section -->
+    <section id="classes" class="container">
+      <h2 class="section-title">Our <span>Programs</span></h2>
+      <div class="classes-grid">
+        <div class="class-card">
+          <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=1469&auto=format&fit=crop" alt="Crossfit">
+          <div class="class-info">
+            <h3>CROSSFIT</h3>
+            <p>High-intensity functional movements for all fitness levels.</p>
+          </div>
+        </div>
+        <div class="class-card">
+          <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1470&auto=format&fit=crop" alt="Yoga">
+          <div class="class-info">
+            <h3>POWER YOGA</h3>
+            <p>Strength, flexibility and mindfulness combined.</p>
+          </div>
+        </div>
+        <div class="class-card">
+          <img src="https://images.unsplash.com/photo-1534258936925-c58bed479fcb?q=80&w=1631&auto=format&fit=crop" alt="Boxing">
+          <div class="class-info">
+            <h3>BOXING</h3>
+            <p>Cardio and combat skills to unleash your inner fighter.</p>
+          </div>
+        </div>
+        <div class="class-card">
+          <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=1470&auto=format&fit=crop" alt="Personal Training">
+          <div class="class-info">
+            <h3>PERSONAL TRAINING</h3>
+            <p>Customized plans with dedicated coaches.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trainers -->
+    <section id="trainers" class="container">
+      <h2 class="section-title">Elite <span>Coaches</span></h2>
+      <div class="trainers-grid">
+        <div class="trainer-card">
+          <img src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?q=80&w=1587&auto=format&fit=crop" alt="Trainer">
+          <h3>MARCUS REED</h3>
+          <p>Strength & Conditioning</p>
+          <div class="social-icons">
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-twitter"></i>
+          </div>
+        </div>
+        <div class="trainer-card">
+          <img src="https://images.unsplash.com/photo-1548690312-e3b507d8c110?q=80&w=1587&auto=format&fit=crop" alt="Trainer woman">
+          <h3>ELENA VASQUEZ</h3>
+          <p>Yoga & Flexibility</p>
+          <div class="social-icons">
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-twitter"></i>
+          </div>
+        </div>
+        <div class="trainer-card">
+          <img src="https://images.unsplash.com/photo-1609899464642-628ac0474713?q=80&w=1587&auto=format&fit=crop" alt="Boxing coach">
+          <h3>DAMON CROSS</h3>
+          <p>Boxing & MMA</p>
+          <div class="social-icons">
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-twitter"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing / Membership -->
+    <section id="pricing" class="container">
+      <h2 class="section-title">Membership <span>Plans</span></h2>
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <h3>BASIC</h3>
+          <div class="price">$29<small>/mo</small></div>
+          <ul>
+            <li>Gym Access (9am-5pm)</li>
+            <li>Locker Room</li>
+            <li>1 Group Class/week</li>
+          </ul>
+          <button class="join-btn">Get Started</button>
+        </div>
+        <div class="pricing-card featured">
+          <h3>PRO</h3>
+          <div class="price">$59<small>/mo</small></div>
+          <ul>
+            <li>24/7 Gym Access</li>
+            <li>Unlimited Classes</li>
+            <li>Free Parking</li>
+            <li>1 Personal Training</li>
+          </ul>
+          <button class="join-btn">Most Popular</button>
+        </div>
+        <div class="pricing-card">
+          <h3>ELITE</h3>
+          <div class="price">$99<small>/mo</small></div>
+          <ul>
+            <li>All PRO features</li>
+            <li>Nutrition Plan</li>
+            <li>Priority Booking</li>
+            <li>Merch Discount</li>
+          </ul>
+          <button class="join-btn">Go Elite</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="container">
+      <h2 class="section-title">Contact <span>Us</span></h2>
+      <div class="contact-form" id="contactForm">
+        <div class="form-group">
+          <input type="text" id="name" placeholder="Your Name" required>
+        </div>
+        <div class="form-group">
+          <input type="email" id="email" placeholder="Your Email" required>
+        </div>
+        <div class="form-group">
+          <textarea id="message" rows="5" placeholder="Your Message"></textarea>
+        </div>
+        <button type="submit" class="btn" id="submitContact">Send Message</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 IRON CORE GYM — All rights reserved. | 123 Iron Street, Muscle City</p>
+  </footer>
+
+  <!-- Toast notification element -->
+  <div id="toast" class="toast">Success!</div>
+
+  <script>
+    (function() {
+      // Mobile menu toggle
+      const menuToggle = document.getElementById('menuToggle');
+      const navLinks = document.getElementById('navLinks');
+
+      if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+          navLinks.classList.toggle('active');
+        });
+      }
+
+      // Close mobile menu when a link is clicked
+      document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+          if (navLinks.classList.contains('active')) {
+            navLinks.classList.remove('active');
+          }
+        });
+      });
+
+      // Toast function
+      function showToast(message, isSuccess = true) {
+        const toast = document.getElementById('toast');
+        if (!toast) return;
+        toast.textContent = message;
+        toast.style.background = isSuccess ? '#ff4500' : '#cc3333';
+        toast.classList.add('show');
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3000);
+      }
+
+      // Handle membership buttons (simulate join)
+      const joinButtons = document.querySelectorAll('.join-btn');
+      joinButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          const plan = this.closest('.pricing-card')?.querySelector('h3')?.textContent || 'plan';
+          showToast(`🔥 You selected the ${plan} plan! Redirecting...`, true);
+        });
+      });
+
+      // Contact form submission with validation
+      const contactForm = document.getElementById('contactForm');
+      const submitBtn = document.getElementById('submitContact');
+      
+      if (contactForm && submitBtn) {
+        submitBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          const nameInput = document.getElementById('name');
+          const emailInput = document.getElementById('email');
+          const messageInput = document.getElementById('message');
+          
+          const name = nameInput?.value.trim() || '';
+          const email = emailInput?.value.trim() || '';
+          const message = messageInput?.value.trim() || '';
+          
+          // Simple validation
+          if (name === '' || email === '' || message === '') {
+            showToast('❌ Please fill in all fields.', false);
+            return;
+          }
+          
+          if (!email.includes('@') || !email.includes('.')) {
+            showToast('❌ Please enter a valid email address.', false);
+            return;
+          }
+          
+          // Simulate sending (would normally be an API call)
+          showToast(`✅ Thanks, ${name}! We'll get back to you soon.`, true);
+          
+          // Clear form
+          nameInput.value = '';
+          emailInput.value = '';
+          messageInput.value = '';
+        });
+      }
+
+      // Smooth scroll for anchor links (additional safety)
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            e.preventDefault();
+            targetElement.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      });
+
+      console.log('💪 IRON CORE Gym — ready to crush it!');
+    })();
+  </script>
+</body>
+</html>
